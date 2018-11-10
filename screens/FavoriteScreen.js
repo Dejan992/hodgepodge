@@ -28,6 +28,14 @@ export default class FavoriteScreen extends React.Component {
       this.setState({ favoriteAlbums })
     }
   }
+  deleteAlbum = async (albumId) => {
+    const { favoriteAlbums } = this.state
+    delete favoriteAlbums[albumId]
+    const success = await actions.storeData('favoriteAlbums', favoriteAlbums);
+    if (success) {
+      this.setState({ favoriteAlbums })
+    }
+  }
   renderFavoriteTracks = (tracks) => {
     if (tracks) {
       return _.map(tracks, (track, id) => {
@@ -64,7 +72,7 @@ export default class FavoriteScreen extends React.Component {
                 raised
                 backgroundColor='#f50'
                 name='trash'
-                onPress={() => { }} />
+                onPress={() => { this.deleteAlbum(album.id) }} />
               {this.renderFavoriteTracks(album.tracks)}
             </Card>
           </View>

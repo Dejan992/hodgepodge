@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, ActivityIndicator, View, Alert } from 'react-native';
+import { ScrollView, StyleSheet, ActivityIndicator, View , Alert} from 'react-native';
 import { Card, Text, Button, Image, Icon } from 'react-native-elements'
 import { CardList } from '../components/CardList'
 import * as actions from '../actions'
@@ -37,13 +37,6 @@ export default class AlbumsScreen extends React.Component {
 
     if (favoriteAlbums[album.id]) {
       //dispally some msg
-      // Alert.alert(
-      //   `Ablum is already in Favorites!`,
-      //   [
-      //     { text: 'Continue', onPress: () => console.log('OK Pressed') },
-      //   ],
-      //   { cancelable: false }
-      // )
       return false
     }
     favoriteAlbums[album.id] = album
