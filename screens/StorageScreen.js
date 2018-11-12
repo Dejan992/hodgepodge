@@ -1,6 +1,6 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
-import { Button } from 'react-native-elements'
+import { View, ScrollView, StyleSheet, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { Button, Divider, Text } from 'react-native-elements'
 import * as actions from '../actions'
 export default class StorageScreen extends React.Component {
   static navigationOptions = {
@@ -45,7 +45,21 @@ export default class StorageScreen extends React.Component {
         <Button title='store data' onPress={() => { this.storeData() }} />
         <Button title='retreive data' onPress={() => { this.retreiveData() }} />
         <Button title='delete data' onPress={() => { this.deleteData() }} />
-        <Text>{value} </Text>
+        <Text h4>{value} </Text>
+
+        <Divider backgroundColor={{ backgroundColor: 'black' }} />
+
+        <Text h3>Touchables</Text>
+        <TouchableHighlight onPress={this._onPressButton} underlayColor="white">
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>TouchableHighlight</Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableOpacity onPress={this._onPressButton}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>TouchableOpacity</Text>
+          </View>
+        </TouchableOpacity>
       </ScrollView>
     );
   }
@@ -56,5 +70,14 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 15,
     backgroundColor: '#fff',
+  }, button: {
+    marginBottom: 30,
+    width: 260,
+    alignItems: 'center',
+    backgroundColor: '#2196F3'
   },
+  buttonText: {
+    padding: 20,
+    color: 'white'
+  }
 });

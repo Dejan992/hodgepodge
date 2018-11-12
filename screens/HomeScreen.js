@@ -13,7 +13,7 @@ import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
 const menuList = [
   {
-    title: 'Search Albums',
+    title: 'Search Albums with text',
     subtitle: 'Search your favorite music',
     icon: 'music',
     navigateTo: 'Albums'
@@ -23,10 +23,10 @@ const menuList = [
     icon: 'heart',
     navigateTo: 'Favorite'
   }, {
-    title: 'Settings',
-    subtitle: 'Customize your app',
-    icon: 'cog',
-    navigateTo: '#'
+    title: 'Search Albums with camera',
+    subtitle: 'Search your favorite music using pictures',
+    icon: 'camera',
+    navigateTo: 'CameraAlbums'
   }
 ]
 export default class HomeScreen extends React.Component {

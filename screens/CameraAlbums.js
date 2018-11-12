@@ -3,10 +3,10 @@ import { ScrollView, StyleSheet, ActivityIndicator, View , Alert} from 'react-na
 import { Card, Text, Button, Image, Icon } from 'react-native-elements'
 import { CardList } from '../components/CardList'
 import * as actions from '../actions'
-import { SearchText } from '../components/SearchText'
-export default class AlbumsScreen extends React.Component {
+import { SearchCamera } from '../components/SearchCamera'
+export default class CameraAlbums extends React.Component {
   static navigationOptions = {
-    title: 'AlbumsScreen',
+    title: 'Camera Albums Screen',
   };
   constructor() {
     super()
@@ -84,7 +84,7 @@ export default class AlbumsScreen extends React.Component {
     const { albums, isFetching } = this.state
     return (
       <ScrollView style={styles.container}>
-        <SearchText submitSearch={this.searchTracks} />
+        <SearchCamera submitSearch={this.searchTracks} />
         {!isFetching ?
           <CardList
             data={this.state.albums}

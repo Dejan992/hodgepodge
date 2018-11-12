@@ -10,11 +10,13 @@ import AlbumsScreen from '../screens/AlbumsScreen'
 import AlbumDetailScreen from '../screens/AlbumDetailScreen'
 import StorageScreen from '../screens/StorageScreen';
 import FavoriteScreen from '../screens/FavoriteScreen'
+import CameraAlbums from '../screens/CameraAlbums'
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   Albums: AlbumsScreen,
   AlbumDetail: AlbumDetailScreen,
-  Favorite: FavoriteScreen
+  Favorite: FavoriteScreen,
+  CameraAlbums: CameraAlbums
 });
 
 HomeStack.navigationOptions = {

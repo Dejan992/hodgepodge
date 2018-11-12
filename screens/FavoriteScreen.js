@@ -28,6 +28,67 @@ export default class FavoriteScreen extends React.Component {
       this.setState({ favoriteAlbums })
     }
   }
+  deleteAlbum = async (albumId) => {
+    const { favoriteAlbums } = this.state
+    delete favoriteAlbums[albumId]
+    const success = await actions.storeData('favoriteAlbums', favoriteAlbums);
+    if (success) {
+      this.setState({ favoriteAlbums })
+    }
+  }
+  //code for playing song within the app
+  async playSong(track, index) {
+    if ( this.currentSong &&  this.state.isPlaying ) { this.currentSong.stopAsync()  }
+
+    try {
+      const { sound: soundObject, status } = await Expo.Audio.Sound.createAsync(
+         {uri: track.preview},
+         { shouldPlay: true }
+      );
+      // Your sound is playing!
+      this.currentSong = soundObject;
+      this.currentSong.playAsync();
+      this.setState({isPlaying: true, currentSongIndex: index});
+    } catch (error) {
+      // An error occurred!
+      this.setState({isPlaying: false, currentSongIndex: undefined});
+    }
+  }
+
+  async stopSong() {
+    const { isPlaying, currentSongIndex } = this.state;
+
+    if ( this.currentSong && isPlaying ) {
+      this.currentSong.stopAsync();
+      this.setState({currentSongIndex: undefined, isPlaying: false});
+    }
+  }
+
+  renderIcon(track, index) {
+    const { isPlaying, currentSongIndex } = this.state;
+
+
+    if (currentSongIndex === index && isPlaying) {
+      return (
+        <Icon raised
+              name='stop-circle'
+              type='font-awesome'
+              color='#f50'
+              onPress={() => this.stopSong(track, index)}
+        />
+      )
+    } else {
+      return (
+        <Icon raised
+              name='play-circle'
+              type='font-awesome'
+              color='#f50'
+              onPress={() => this.playSong(track, index)}
+        />
+      )
+    }
+  }
+  
   renderFavoriteTracks = (tracks) => {
     if (tracks) {
       return _.map(tracks, (track, id) => {
@@ -35,15 +96,7 @@ export default class FavoriteScreen extends React.Component {
           <ListItem
             key={id}
             title={track.title}
-            leftIcon={{ name: 'play-arrow' }}
-            rightIcon={
-              <Icon
-                raised
-                name='music'
-                type='font-awesome'
-                color='#f50'
-                onPress={() => Linking.openURL(track.preview)}
-              />
+            rightIcon={this.renderIcon(track, id)
             } />
         )
       })
@@ -64,7 +117,7 @@ export default class FavoriteScreen extends React.Component {
                 raised
                 backgroundColor='#f50'
                 name='trash'
-                onPress={() => { }} />
+                onPress={() => { this.deleteAlbum(album.id) }} />
               {this.renderFavoriteTracks(album.tracks)}
             </Card>
           </View>
