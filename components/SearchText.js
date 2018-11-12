@@ -1,6 +1,8 @@
 import React from 'react';
-import {View, StyleSheet } from 'react-native';
+import {View, StyleSheet, TouchableOpacity } from 'react-native';
 import {Text, FormLabel, FormInput, Button, FormValidationMessage, Icon } from 'react-native-elements'
+
+import { Camera, Permissions } from 'expo';
 export class SearchText extends React.Component {
   state = {
     value: '',
@@ -21,31 +23,25 @@ export class SearchText extends React.Component {
   handlePicture = (value) => {
     this.props.submitSearch(value)
   }
-  handlePress = () => {
+  handlePressCamera = () => {
     this.setState((prevState) => ({
       camera: !prevState.camera
     }))
   }
-
   render() {
     const disabled = this.state.value.length
     return (
-      <React.Fragment>
+      <React.Fragment >
+
         <FormLabel containerStyle={styles.center}
             >Tell me how you feel...</FormLabel>
+        <React.Fragment>
         <FormInput ref={input => this.input = input} onChangeText={(e) => this.handleChange(e)} />
         <FormValidationMessage />
-        <Button disabled={!disabled} title='Search' onPress={(e) => { this.handleSubmit(e) }} />
-        <View style={styles.icon}>
-        <Icon
-                raised
-                name='camera'
-                type='font-awesome'
-                color='#09A9F4'
-                onPress={() => this.handlePress()} /><Text h3>Search with camera</Text>
-                
-                </View>
-      </React.Fragment>
+        <Button disabled={!disabled} title='Search' onPress={(e) => { this.handleSubmit(e) }} /> 
+        </React.Fragment>
+        
+    </React.Fragment>
     )
   }
 }
